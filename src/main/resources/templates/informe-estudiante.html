@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Informe del Estudiante</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset de márgenes y padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('			https://estrategiasbenv.wordpress.com/wp-content/uploads/2012/08/books-wallpaper-books-to-readjhkb-28990406-1024-768.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #1d1f21;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Capa oscura */
+            z-index: -1;
+        }
+
+        .navbar {
+            background-color: rgba(34, 45, 65, 0.9);
+            padding: 12px 20px;
+            margin-bottom: 20px;
+        }
+
+        .navbar-title h1 {
+            font-size: 1.8em;
+            color: #fff;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            animation: pulso 2s infinite;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .info p,
+        .scores p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #333;
+        }
+
+        /* Colores para los niveles */
+        .nivel-1 {
+            color: #f44336; /* Nivel 1: rojo */
+        }
+
+        .nivel-2 {
+            color: #ff9800; /* Nivel 2: naranja */
+        }
+
+        .nivel-3 {
+            color: #ffeb3b; /* Nivel 3: amarillo */
+        }
+
+        .nivel-4 {
+            color: #4CAF50; /* Nivel 4: verde */
+        }
+
+        .text-success {
+            color: green; /* Color verde para aprobado */
+        }
+
+        .text-danger {
+            color: red; /* Color rojo para reprobado o anulado */
+        }
+
+        /* Animación de brillo en h1 */
+        @keyframes pulso {
+            0% {
+                text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            }
+
+            50% {
+                text-shadow: 0 0 20px rgba(76, 175, 80, 1);
+            }
+
+            100% {
+                text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            }
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            padding: 10px 0;
+            background-color: #333;
+            color: #fff;
+            border-radius: 8px;
+            animation: pulsoFooter 2.5s infinite;
+        }
+
+        @keyframes pulsoFooter {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+
+            50% {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 1);
+            }
+
+            100% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .btn-volver {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .btn-volver:hover {
+            background-color: #45a049;
+        }
+
+        /* Responsividad: ajustes para diferentes pantallas */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .info p,
+            .scores p {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .info p,
+            .scores p {
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-title">
+            <h1>PRUEBAS SABER PRO</h1>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Informe del Estudiante</h1>
+
+        <div class="info">
+            <p><strong>Nombre:</strong> <span th:text="${nombre}"></span></p>
+            <p><strong>Apellido:</strong> <span th:text="${apellido}"></span></p>
+        </div>
+
+        <h2>Puntajes y Niveles</h2>
+
+        <div class="scores">
+            <p><strong>Comunicación Escrita:</strong>
+                <span th:text="${comunicacion == -1 ? 'Anulado' : comunicacion}"></span>
+                <span th:class="${comunicacionLevel == 'Nivel 1' ? 'nivel-1' : (comunicacionLevel == 'Nivel 2' ? 'nivel-2' : (comunicacionLevel == 'Nivel 3' ? 'nivel-3' : 'nivel-4'))}">
+                    <span th:text="${comunicacionLevel}"></span>
+                </span>
+            </p>
+
+            <p><strong>Razonamiento Cuantitativo:</strong>
+                <span th:text="${razonamiento == -1 ? 'Anulado' : razonamiento}"></span>
+                <span th:class="${razonamientoLevel == 'Nivel 1' ? 'nivel-1' : (razonamientoLevel == 'Nivel 2' ? 'nivel-2' : (razonamientoLevel == 'Nivel 3' ? 'nivel-3' : 'nivel-4'))}">
+                    <span th:text="${razonamientoLevel}"></span>
+                </span>
+            </p>
+
+            <p><strong>Lectura Crítica:</strong>
+                <span th:text="${lectura == -1 ? 'Anulado' : lectura}"></span>
+                <span th:class="${lecturaLevel == 'Nivel 1' ? 'nivel-1' : (lecturaLevel == 'Nivel 2' ? 'nivel-2' : (lecturaLevel == 'Nivel 3' ? 'nivel-3' : 'nivel-4'))}">
+                    <span th:text="${lecturaLevel}"></span>
+                </span>
+            </p>
+
+            <p><strong>Competencias Ciudadanas:</strong>
+                <span th:text="${competencias == -1 ? 'Anulado' : competencias}"></span>
+                <span th:class="${competenciasLevel == 'Nivel 1' ? 'nivel-1' : (competenciasLevel == 'Nivel 2' ? 'nivel-2' : (competenciasLevel == 'Nivel 3' ? 'nivel-3' : 'nivel-4'))}">
+                    <span th:text="${competenciasLevel}"></span>
+                </span>
+            </p>
+
+            <p><strong>Inglés:</strong>
+                <span th:text="${ingles == -1 ? 'Anulado' : ingles}"></span>
+                <span th:class="${inglesLevel == 'Nivel 1' ? 'nivel-1' : (inglesLevel == 'Nivel 2' ? 'nivel-2' : (inglesLevel == 'Nivel 3' ? 'nivel-3' : 'nivel-4'))}">
+                    <span th:text="${inglesLevel}"></span>
+                </span>
+            </p>
+
+            <p><strong>Competencias Matemáticas:</strong>
+                <span th:text="${competenciasMatematicas == -1 ? 'Anulado' : competenciasMatematicas}"></span>
+                <span th:class="${competenciasMatematicasLevel == 'Nivel 1' ? 'nivel-1' : (competenciasMatematicasLevel == 'Nivel 2' ? 'nivel-2' : (competenciasMatematicasLevel == 'Nivel 3' ? 'nivel-3' : 'nivel-4'))}">
+                    <span th:text="${competenciasMatematicasLevel}"></span>
+                </span>
+            </p>
+        </div>
+
+        <button class="btn-volver" onclick="history.back()">Volver</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Saber Pro. Tatiana Arenis. Todos los derechos reservados.</p>
+    </footer>
+</body>
+
+</html>
